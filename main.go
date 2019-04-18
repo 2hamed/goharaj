@@ -1,16 +1,13 @@
-package haraj
+package main
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
 )
 
 func main() {
-	r := mux.NewRouter()
-
-	r.HandleFunc("/", HomeHandler).Methods("GET")
-
-	http.Handle("/", r)
+	r := GetRouter()
+	h := Apply(r)
+	http.ListenAndServe(":8000", h)
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
